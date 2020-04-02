@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class Header extends Component {
     render() {
         return (
-            <header id="header">
+            <header>
                 <div className="d-flex flex-column">
                     <div className="profile">
                         <img src="/public/img/profile-img.jpg" alt="" className="img-fluid rounded-circle"/>
