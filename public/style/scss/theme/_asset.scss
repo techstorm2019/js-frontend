@@ -148,7 +148,7 @@ header .profile .social-links a:hover {
   align-items: center;
   color: $bg-color;
   padding: 12px 15px;
-  margin-bottom: 8px;
+  /*margin-bottom: 8px;*/
   transition: 0.3s;
   font-size: 15px;
 }
@@ -164,8 +164,13 @@ header .profile .social-links a:hover {
   color: $bg-color;
 }
 
-.nav-menu a:hover i, .nav-menu .active > a i, .nav-menu li:hover > a i {
-  color: $brand-dark;
+.nav-menu {
+  .active > a i, .active > a:hover i {
+    color: $brand-dark;
+  }
+  a:hover i, li:hover > a i {
+    color: $blue-light;
+  }
 }
 
 /* Mobile Navigation */
@@ -188,16 +193,12 @@ header .profile .social-links a:hover {
   color: $brand-default;
 }
 
-.mobile-nav-active {
+header.mobile-nav-active {
   overflow: hidden;
-}
-
-.mobile-nav-active header {
-  left: 0;
-}
-
-.mobile-nav-active .mobile-nav-toggle i {
-  color: $bg-color;
+    left: 0;
+  /*.mobile-nav-toggle i {
+    color: $bg-color;
+  }*/
 }
 
 /*--------------------------------------------------------------

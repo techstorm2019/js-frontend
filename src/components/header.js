@@ -1,47 +1,67 @@
 import React, {Component} from 'react';
+import {Link} from'react-router-dom';
+import HeaderItems from "../constant/header-items";
 
 class Header extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            activeMobileNav: false
+        }
+    }
+
+    activeNav = (e) => {
+        let ulNode = e.target.parentNode.parentNode.parentNode;
+        let liNode = e.target.parentNode.parentNode;
+        let listItems = ulNode.childNodes;
+        console.log(listItems);
+        console.log(liNode);
+        listItems.forEach((listItem,index) => {
+            listItem.classList.remove('active');
+        });
+        liNode.classList.add('active');
+        this.toggleMobileNav();
+    };
+
+    toggleMobileNav = () => {
+        this.setState({
+            activeMobileNav: !this.state.activeMobileNav
+        })
+    };
+
     render() {
         return (
-            <header>
+            <header className={this.state.activeMobileNav ? "mobile-nav-active" : ""}>
                 <div className="d-flex flex-column">
                     <div className="profile">
-                        <img src="/public/img/profile-img.jpg" alt="" className="img-fluid rounded-circle"/>
+                        <img src="/img/profile-img.jpg" alt="" className="img-fluid rounded-circle"/>
                         <h1 className="text-light">Alex Smith</h1>
                         <div className="social-links mt-3 text-center">
-                            <a href="#" className="twitter"><i className="fa fa-home"/></a>
-                            <a href="#" className="facebook"><i className="fa fa-home"/></a>
-                            <a href="#" className="instagram"><i className="fa fa-home"/></a>
-                            <a href="#" className="google-plus"><i className="fa fa-home"/></a>
-                            <a href="#" className="linkedin"><i className="fa fa-home"/></a>
+                            <a href="#" className="twitter"><i className="fab fa-facebook"/></a>
+                            <a href="#" className="facebook"><i className="fab fa-twitter"/></a>
+                            <a href="#" className="instagram"><i className="fab fa-instagram"/></a>
+                            <a href="#" className="google-plus"><i className="fab fa-google-plus"/></a>
+                            <a href="#" className="linkedin"><i className="fab fa-linkedin"/></a>
                         </div>
                     </div>
-
                     <nav className="nav-menu">
                         <ul>
-                            <li className="active">
-                                <a href="index.html"><i className="fa fa-home"/><span>Home</span></a>
-                            </li>
-                            <li className="">
-                                <a href="#about"><i className="fa fa-home"/> <span>About</span></a>
-                            </li>
-                            <li>
-                                <a href="#resume"><i className="fa fa-home"/> <span>Resume</span></a>
-                            </li>
-                            <li>
-                                <a href="#portfolio"><i className="fa fa-home"/> Portfolio</a>
-                            </li>
-                            <li>
-                                <a href="#services"><i className="fa fa-home"/> Services</a>
-                            </li>
-                            <li>
-                                <a href="#contact"><i className="fa fa-home"/> Contact</a>
-                            </li>
+                            {
+                                HeaderItems.map((item, index) => {
+                                    return (
+                                        <li className={""} key={`item-${index}`}>
+                                            <Link to={item.link} onClick={(e) => this.activeNav(e)}>
+                                                <i className={item.icon}/><span>{item.label}</span>
+                                            </Link>
+                                        </li>
+                                    )
+                                })
+                            }
                         </ul>
                     </nav>
-
-                    <button type="button" className="mobile-nav-toggle d-xl-none">
-                        <i className="fa fa-bars"/>
+                    <button type="button" className="mobile-nav-toggle d-xl-none" onClick={() => this.toggleMobileNav()}>
+                        <i className={this.state.activeMobileNav ? "fas fa-times" : "fa fa-bars"}/>
                     </button>
                 </div>
             </header>
